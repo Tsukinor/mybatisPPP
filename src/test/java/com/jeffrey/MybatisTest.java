@@ -1,6 +1,7 @@
 package com.jeffrey;
 
 import com.jeffrey.entity.Monster;
+import com.jeffrey.mybatis.config.MapperBean;
 import com.jeffrey.mybatis.sqlsession.Executor;
 import com.jeffrey.mybatis.sqlsession.MyConfiguration;
 import com.jeffrey.mybatis.sqlsession.MyExecutor;
@@ -33,5 +34,13 @@ public class MybatisTest {
         MySqlSession mySqlSession = new MySqlSession();
         Monster o = mySqlSession.selectOne("select * from monster where id=?", 1);
         System.out.println(o);
+    }
+
+    @Test
+    public void readMapper(){
+        MyConfiguration myConfiguration = new MyConfiguration();
+        MapperBean mapperBean = myConfiguration.readMapper("MonsterMapper.xml");
+        System.out.println(mapperBean.getFunctions());
+        System.out.println(mapperBean.getInterfaceName());
     }
 }
