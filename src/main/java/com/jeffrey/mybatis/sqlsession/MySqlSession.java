@@ -1,5 +1,7 @@
 package com.jeffrey.mybatis.sqlsession;
 
+import java.lang.reflect.Proxy;
+
 /**
  * @program: mybatisPPP
  * @author: Jeffrey
@@ -20,4 +22,9 @@ public class MySqlSession {
         return myExecutor.query(statement,parameter);
     }
 
+    public <T>T getMapper(Class<T> clazz){
+        //返回动态代理对象
+        return (T) Proxy.newProxyInstance(clazz.getClassLoader(),new Class[]{clazz},
+                new MyMapperProxy(myConfiguration,this,clazz));
+    }
 }
